@@ -1,6 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react'
-import { motion, useScroll, useSpring } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 
 const navItems = [
@@ -13,6 +13,7 @@ const navItems = [
 export default function Navigation() {
   const [scrolled, setScrolled] = useState(false)
   const [active, setActive] = useState('hero')
+  const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50)
@@ -25,7 +26,7 @@ export default function Navigation() {
           if (entry.isIntersecting) setActive(entry.target.id)
         })
       },
-      { threshold: 0.3, rootMargin: '-80px 0px -80px 0px' } // accounts for fixed navbar
+      { threshold: 0.3, rootMargin: '-80px 0px -80px 0px' }
     )
     sections.forEach((section) => observer.observe(section))
 
@@ -35,11 +36,8 @@ export default function Navigation() {
     }
   }, [])
 
-  const { scrollYProgress } = useScroll()
-  const scaleX = useSpring(scrollYProgress, { stiffness: 200, damping: 30 })
-
-  // Smooth scroll handler
   const handleClick = (id) => {
+    setMenuOpen(false) // close mobile menu when navigating
     if (id === 'hero') {
       window.scrollTo({ top: 0, behavior: 'smooth' })
     } else {
@@ -59,20 +57,14 @@ export default function Navigation() {
           : 'bg-brand-dark/60 backdrop-blur-sm border-b border-transparent'
       }`}
     >
-      {/* Scroll progress bar */}
-      <motion.div
-        style={{ scaleX }}
-        className="origin-left absolute top-0 left-0 h-1 bg-gradient-to-r from-brand-primary to-brand-light"
-      />
-
-      <div className="max-w-7xl mx-auto px-8 py-3 flex justify-between items-center">
+      <div className="max-w-7xl mx-auto px-6 md:px-8 py-3 flex justify-between items-center">
         {/* Logo */}
         <div className="flex items-center space-x-3">
           <Image
             src="/images/rajputna-favicon.png"
             alt="Rajputna Logo"
-            width={48}
-            height={48}
+            width={40}
+            height={40}
             className="object-contain rounded-md"
           />
           <div className="flex flex-col leading-tight">
@@ -83,7 +75,7 @@ export default function Navigation() {
           </div>
         </div>
 
-        {/* Nav Links */}
+        {/* Desktop Nav Links */}
         <div className="hidden md:flex items-center space-x-8 font-medium">
           {navItems.map((item) => (
             <button
@@ -100,16 +92,59 @@ export default function Navigation() {
           ))}
         </div>
 
-        {/* Get Started CTA */}
+        {/* CTA Button */}
         <motion.button
           onClick={() => handleClick('cta')}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.97 }}
-          className="bg-gradient-to-r from-brand-primary to-brand-dark text-white px-5 py-2 rounded-full font-medium shadow-md hover:shadow-xl transition-all text-sm"
+          className="hidden md:block bg-gradient-to-r from-brand-primary to-brand-dark text-white px-5 py-2 rounded-full font-medium shadow-md hover:shadow-xl transition-all text-sm"
         >
           Get Started
         </motion.button>
+
+        {/* Mobile Hamburger */}
+        <button
+          className="md:hidden text-white focus:outline-none"
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          {menuOpen ? '✕' : '☰'}
+        </button>
       </div>
+
+      {/* Mobile Dropdown Menu */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden bg-brand-dark/95 backdrop-blur-md px-6 pb-6 space-y-4"
+          >
+            {navItems.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => handleClick(item.id)}
+                className={`block w-full text-left py-2 text-lg ${
+                  active === item.id
+                    ? 'text-brand-primary font-semibold'
+                    : 'text-gray-300 hover:text-white'
+                }`}
+              >
+                {item.label}
+              </button>
+            ))}
+            <motion.button
+              onClick={() => handleClick('cta')}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.97 }}
+              className="w-full bg-gradient-to-r from-brand-primary to-brand-dark text-white px-5 py-3 rounded-full font-medium shadow-md hover:shadow-xl transition-all"
+            >
+              Get Started
+            </motion.button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.nav>
   )
 }

@@ -22,7 +22,7 @@ export default function CTA() {
   }, [])
 
   return (
-    <section id="cta" ref={ref} className="relative py-32 bg-gray-900 overflow-hidden">
+    <section id="cta" ref={ref} className="relative py-20 md:py-32 bg-gray-900 overflow-hidden">
       {/* Background particles */}
       {particles.map((p, i) => (
         <motion.div
@@ -39,39 +39,40 @@ export default function CTA() {
         initial={{ opacity: 0, y: 40 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.9, ease: 'easeOut' }}
-        className="relative z-10 max-w-4xl mx-auto px-6"
+        className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8"
       >
-        <div className="bg-white/10 backdrop-blur-md rounded-3xl p-12 text-center shadow-2xl border border-white/20">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+        <div className="bg-white/10 backdrop-blur-md rounded-2xl sm:rounded-3xl p-6 sm:p-10 md:p-12 text-center shadow-2xl border border-white/20">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6">
             Ready to Transform Your Ideas?
           </h2>
-          <p className="text-white/80 text-lg md:text-xl mb-10">
+          <p className="text-base sm:text-lg md:text-xl text-white/80 mb-10">
             Work with Rajputna Group to bring your vision to life. Creative solutions crafted with precision.
           </p>
 
-          <div className="flex flex-col sm:flex-row justify-center gap-6 mb-8">
-            {/* WhatsApp redirect */}
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 mb-8">
             <a
               href="https://wa.me/971554922749?text=Hi%20Rajputna%20Group,%20I%27m%20interested%20in%20your%20services."
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-green-600 text-white font-semibold px-10 py-4 rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all"
+              className="bg-green-600 text-white font-semibold px-6 sm:px-10 py-3 sm:py-4 rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all text-sm sm:text-base"
             >
               Get Free Consultation
             </a>
 
             <a
               href="tel:+971554922749"
-              className="border-2 border-white text-white px-10 py-4 rounded-full font-semibold hover:bg-white hover:text-gray-900 transition-all"
+              className="border-2 border-white text-white px-6 sm:px-10 py-3 sm:py-4 rounded-full font-semibold hover:bg-white hover:text-gray-900 transition-all text-sm sm:text-base"
             >
               Call +971 55 492 2749
             </a>
           </div>
 
-          <div className="flex flex-col md:flex-row justify-center gap-6 text-white/80 font-medium text-lg">
+          {/* Contact Info */}
+          <div className="flex flex-col md:flex-row justify-center gap-4 md:gap-6 text-white/80 font-medium text-sm sm:text-base">
             <div className="flex items-center gap-2">
               <span>📧</span>
-              <span>sreeleshchalil@gmail.com</span>
+              <span className="break-words">sreeleshchalil@gmail.com</span>
             </div>
             <div className="flex items-center gap-2">
               <span>📞</span>
@@ -87,4 +88,3 @@ export default function CTA() {
     </section>
   )
 }
-        

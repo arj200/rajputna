@@ -1,20 +1,39 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /* --------------------
-   Base Styles
+   Base Resets & Styles
 -------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 html {
   scroll-behavior: smooth; /* smooth scrolling for nav links */
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%; /* prevent iOS font scaling */
 }
 
 body {
   @apply font-sans text-brand-dark antialiased;
   font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
   position: relative;
   z-index: 0;
+  min-height: 100vh;
+  background-color: #0E1420;
+  color: #F9F7F7;
+}
+
+/* Images & Videos responsive */
+img, video {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
 /* Shared animated gradient background */
@@ -39,22 +58,23 @@ body::before {
 }
 
 /* --------------------
-   Custom Typography
+   Typography
 -------------------- */
 h1, h2, h3, h4, h5, h6 {
   @apply font-serif font-bold text-brand-dark;
-  font-family: 'Playfair Display', serif; /* Elegant font for headings */
+  font-family: 'Playfair Display', serif;
 }
 
 p {
   @apply text-brand-primary leading-relaxed;
+  font-size: 1rem;
 }
 
 /* --------------------
-   Reusable Utilities
+   Utilities
 -------------------- */
 
-/* Gradient text for wow factors */
+/* Gradient text for highlights */
 .text-gradient {
   @apply bg-clip-text text-transparent bg-gradient-to-r from-brand-primary to-brand-dark;
 }
@@ -68,7 +88,7 @@ p {
   @apply shadow-xl scale-105;
 }
 
-/* Container utility */
+/* Container */
 .container {
   @apply max-w-7xl mx-auto px-6;
 }
@@ -79,43 +99,36 @@ p {
 
 /* Fade-in up animation */
 @keyframes fadeUp {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
-
-.animate-fadeUp {
-  animation: fadeUp 0.8s ease-out forwards;
-}
+.animate-fadeUp { animation: fadeUp 0.8s ease-out forwards; }
 
 /* Slow fade */
-@keyframes fadeSlow {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
+@keyframes fadeSlow { from { opacity: 0; } to { opacity: 1; } }
+.animate-fadeSlow { animation: fadeSlow 1.2s ease-in forwards; }
 
-.animate-fadeSlow {
-  animation: fadeSlow 1.2s ease-in forwards;
-}
+/* Blob animation */
 @keyframes blob {
   0%, 100% { transform: scale(1) translate(0,0); }
   33% { transform: scale(1.2) translate(30px,-50px); }
   66% { transform: scale(0.8) translate(-20px,20px); }
 }
+.animate-blob { animation: blob 10s infinite ease-in-out; }
+.animation-delay-2000 { animation-delay: 2s; }
+.animation-delay-4000 { animation-delay: 4s; }
 
-.animate-blob {
-  animation: blob 10s infinite ease-in-out;
+/* --------------------
+   Responsive Helpers
+-------------------- */
+@media (max-width: 768px) {
+  h1 { font-size: 2.5rem; }
+  h2 { font-size: 2rem; }
+  p { font-size: 0.95rem; }
 }
 
-.animation-delay-2000 {
-  animation-delay: 2s;
-}
-
-.animation-delay-4000 {
-  animation-delay: 4s;
+@media (max-width: 480px) {
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.75rem; }
+  p { font-size: 0.9rem; }
 }
