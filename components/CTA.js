@@ -17,9 +17,15 @@ export default function CTA() {
       duration: 8 + Math.random() * 4,
       xRange: Math.random() * 50 - 25,
       yRange: Math.random() * 50 - 25,
+      bg: `radial-gradient(circle, rgba(${Math.floor(Math.random()*255)}, ${Math.floor(Math.random()*255)}, ${Math.floor(Math.random()*255)}, 0.15) 0%, transparent 70%)`,
     }))
     setParticles(arr)
   }, [])
+
+  const ctaReveal = {
+    hidden: { opacity: 0, y: 40, scale: 0.95 },
+    show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.9, ease: 'easeOut' } },
+  }
 
   return (
     <section id="cta" ref={ref} className="relative py-20 md:py-32 bg-gray-900 overflow-hidden">
@@ -27,8 +33,8 @@ export default function CTA() {
       {particles.map((p, i) => (
         <motion.div
           key={i}
-          className="absolute bg-white/10 rounded-full"
-          style={{ width: p.size, height: p.size, top: p.top, left: p.left }}
+          className="absolute rounded-full pointer-events-none"
+          style={{ width: p.size, height: p.size, top: p.top, left: p.left, background: p.bg }}
           animate={{ x: [0, p.xRange, 0], y: [0, p.yRange, 0], opacity: [0.2, 0.6, 0.2] }}
           transition={{ duration: p.duration, repeat: Infinity, ease: 'easeInOut', delay: p.delay }}
         />
@@ -36,9 +42,9 @@ export default function CTA() {
 
       {/* CTA content */}
       <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        animate={isInView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.9, ease: 'easeOut' }}
+        variants={ctaReveal}
+        initial="hidden"
+        animate={isInView ? 'show' : 'hidden'}
         className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8"
       >
         <div className="bg-white/10 backdrop-blur-md rounded-2xl sm:rounded-3xl p-6 sm:p-10 md:p-12 text-center shadow-2xl border border-white/20">
@@ -55,16 +61,16 @@ export default function CTA() {
               href="https://wa.me/971554922749?text=Hi%20Rajputna%20Group,%20I%27m%20interested%20in%20your%20services."
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-green-600 text-white font-semibold px-6 sm:px-10 py-3 sm:py-4 rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all text-sm sm:text-base"
+              className="cursor-hover bg-gradient-to-r from-[#3F72AF] to-[#DBE2EF] text-white font-semibold px-6 sm:px-10 py-3 sm:py-4 rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all text-sm sm:text-base"
             >
               Get Free Consultation
             </a>
 
             <a
-              href="tel:+971554922749"
-              className="border-2 border-white text-white px-6 sm:px-10 py-3 sm:py-4 rounded-full font-semibold hover:bg-white hover:text-gray-900 transition-all text-sm sm:text-base"
+              href="tel:+97145541045"
+              className="cursor-hover border-2 border-white text-white px-6 sm:px-10 py-3 sm:py-4 rounded-full font-semibold hover:bg-white hover:text-gray-900 transition-all text-sm sm:text-base"
             >
-              Call +971 55 492 2749
+              Call +971 4 554 1045
             </a>
           </div>
 
@@ -72,11 +78,11 @@ export default function CTA() {
           <div className="flex flex-col md:flex-row justify-center gap-4 md:gap-6 text-white/80 font-medium text-sm sm:text-base">
             <div className="flex items-center gap-2">
               <span>📧</span>
-              <span className="break-words">sreeleshchalil@gmail.com</span>
+              <span className="break-words">info@rajputna.com</span>
             </div>
             <div className="flex items-center gap-2">
               <span>📞</span>
-              <span>+971 55 492 2749</span>
+              <span>+971 4 554 1045</span>
             </div>
             <div className="flex items-center gap-2">
               <span>📍</span>

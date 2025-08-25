@@ -14,18 +14,19 @@ export default function Portfolio() {
     hidden: {},
     show: {
       transition: {
-        staggerChildren: 0.2,
+        staggerChildren: 0.15,
       },
     },
   }
 
   const card = {
-    hidden: { opacity: 0, y: 80 },
-    show: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.8, ease: 'easeOut' },
-    },
+    hidden: { opacity: 0, y: 40, scale: 0.95 },
+    show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.8, ease: 'easeOut' } },
+  }
+
+  const overlay = {
+    hidden: { opacity: 0 },
+    show: { opacity: 1, transition: { duration: 0.4, ease: 'easeOut' } },
   }
 
   return (
@@ -65,9 +66,9 @@ export default function Portfolio() {
           {projects.map((project, index) => (
             <motion.div
               key={index}
-              className="rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl cursor-pointer relative h-72 sm:h-80 md:h-96 transition-all"
+              className="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl cursor-pointer cursor-hover h-72 sm:h-80 md:h-96 transition-all"
               variants={card}
-              whileHover={{ scale: 1.03 }}
+              whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.97 }}
             >
               <img
@@ -75,13 +76,17 @@ export default function Portfolio() {
                 alt={project.name}
                 className="w-full h-full object-cover"
               />
-              {/* Overlay text */}
-              <div className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 bg-black/50 px-3 sm:px-4 py-2 rounded-md max-w-[90%]">
-                <h3 className="text-white font-semibold text-base sm:text-lg truncate">
-                  {project.name}
-                </h3>
+
+              {/* Overlay with gradient + text */}
+              <motion.div
+                variants={overlay}
+                initial="hidden"
+                whileHover="show"
+                className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent flex flex-col justify-end p-4 sm:p-6 rounded-2xl"
+              >
+                <h3 className="text-white font-semibold text-base sm:text-lg truncate">{project.name}</h3>
                 <p className="text-white/80 text-xs sm:text-sm">{project.type}</p>
-              </div>
+              </motion.div>
             </motion.div>
           ))}
         </motion.div>

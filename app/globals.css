@@ -119,8 +119,48 @@ p {
 .animation-delay-4000 { animation-delay: 4s; }
 
 /* --------------------
+   Features Section Enhancements
+-------------------- */
+
+/* Gradient orb icons */
+.feature-orb {
+  @apply w-16 h-16 rounded-full flex items-center justify-center text-white shadow-lg;
+  background: linear-gradient(135deg, #3F72AF, #DBE2EF);
+}
+
+/* Feature card base style & hover shadow */
+.feature-card {
+  @apply cursor-pointer bg-white rounded-2xl p-6 sm:p-8 shadow-lg transition-all overflow-hidden;
+  clip-path: inset(100% 0% 0% 0%);
+  opacity: 0;
+  animation: cardReveal 0.9s forwards ease-in-out;
+}
+.feature-card:hover {
+  @apply shadow-2xl scale-105;
+}
+
+/* Clip-path reveal animation */
+@keyframes cardReveal {
+  to {
+    clip-path: inset(0% 0% 0% 0%);
+    opacity: 1;
+  }
+}
+
+/* Floating particles for features */
+.feature-particle {
+  @apply absolute rounded-full pointer-events-none;
+}
+
+/* --------------------
    Responsive Helpers
 -------------------- */
+@media (max-width: 1024px) {
+  h1 { font-size: 3rem; }
+  h2 { font-size: 2.5rem; }
+  .feature-card p { font-size: 0.95rem; }
+}
+
 @media (max-width: 768px) {
   h1 { font-size: 2.5rem; }
   h2 { font-size: 2rem; }
@@ -131,4 +171,7 @@ p {
   h1 { font-size: 2rem; }
   h2 { font-size: 1.75rem; }
   p { font-size: 0.9rem; }
+  .feature-card {
+    padding: 1.5rem;
+  }
 }
