@@ -21,12 +21,6 @@ export default function CTA() {
     setParticles(arr)
   }, [])
 
-  const handleScroll = (e, target) => {
-    e.preventDefault()
-    const el = document.querySelector(target)
-    if (el) el.scrollIntoView({ behavior: 'smooth' })
-  }
-
   return (
     <section id="cta" ref={ref} className="relative py-32 bg-gray-900 overflow-hidden">
       {/* Background particles */}
@@ -56,10 +50,12 @@ export default function CTA() {
           </p>
 
           <div className="flex flex-col sm:flex-row justify-center gap-6 mb-8">
+            {/* WhatsApp redirect */}
             <a
-              href="#contact-form"
-              onClick={(e) => handleScroll(e, '#contact-form')}
-              className="bg-blue-600 text-white font-semibold px-10 py-4 rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all"
+              href="https://wa.me/971554922749?text=Hi%20Rajputna%20Group,%20I%27m%20interested%20in%20your%20services."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-green-600 text-white font-semibold px-10 py-4 rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all"
             >
               Get Free Consultation
             </a>
@@ -91,3 +87,4 @@ export default function CTA() {
     </section>
   )
 }
+        
